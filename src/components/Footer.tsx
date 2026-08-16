@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import { Camera, PlayCircle, MessageCircle, ArrowRight } from "lucide-react";
-import NewsletterForm from "./NewsletterForm";
 
 export default function Footer() {
   return (
@@ -43,11 +42,10 @@ export default function Footer() {
         {/* Multi-Column Layout */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-24 border-t border-border/20 pt-16">
           <div className="col-span-1 md:col-span-2 max-w-sm">
-            <h3 className="text-white text-sm font-bold uppercase tracking-widest mb-6">Stay Updated</h3>
-            <p className="text-sm mb-6 leading-relaxed">
-              Join our newsletter to receive exclusive insights on visual strategy, case studies, and behind-the-scenes content from our studio.
+            <h3 className="text-white text-sm font-bold uppercase tracking-widest mb-6">Havilah Pro</h3>
+            <p className="text-sm leading-relaxed text-text/80">
+              Where brands strike gold. We are a premium multimedia production house specialising in cinematic storytelling, photography, and digital marketing strategies that endure.
             </p>
-            <NewsletterForm />
           </div>
           
           <div>
