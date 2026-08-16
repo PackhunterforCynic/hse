@@ -127,7 +127,6 @@ export default function Home() {
         {/* Hero Content */}
         <div className="relative max-w-5xl mx-auto px-6 z-20 text-center flex flex-col items-center gap-8">
           
-
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-serif font-bold text-white tracking-tight leading-tight uppercase animate-fade-in-up">
             Where Brands <span className="text-accent italic font-normal lowercase">Strike Gold</span>.
           </h1>

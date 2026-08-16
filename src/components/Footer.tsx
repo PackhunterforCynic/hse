@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Camera, PlayCircle, MessageCircle, ArrowRight } from "lucide-react";
+import NewsletterForm from "./NewsletterForm";
 
 export default function Footer() {
   return (
@@ -46,16 +47,7 @@ export default function Footer() {
             <p className="text-sm mb-6 leading-relaxed">
               Join our newsletter to receive exclusive insights on visual strategy, case studies, and behind-the-scenes content from our studio.
             </p>
-            <form className="relative flex items-center">
-              <input 
-                type="email" 
-                placeholder="EMAIL ADDRESS" 
-                className="w-full bg-surface/20 border-b border-border/50 py-3 px-2 text-xs font-bold uppercase tracking-widest text-white placeholder-white/30 focus:outline-none focus:border-accent transition-colors"
-              />
-              <button type="submit" className="absolute right-2 text-white hover:text-accent transition-colors">
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </form>
+            <NewsletterForm />
           </div>
           
           <div>
