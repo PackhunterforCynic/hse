@@ -66,10 +66,42 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Havilah Pro",
+    "url": "https://havilahpro.com",
+    "logo": "https://havilahpro.com/icon.svg",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91-7204042538",
+      "contactType": "customer service"
+    },
+    "sameAs": [
+      "https://www.instagram.com/thepraiseayodeji",
+      "https://www.youtube.com/@hsedigitals"
+    ]
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Havilah Pro",
+    "url": "https://havilahpro.com"
+  };
+
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased min-h-screen flex flex-col`}>
         <CookieConsentProvider>
