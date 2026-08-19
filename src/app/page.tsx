@@ -192,18 +192,26 @@ export default function Home() {
             className="mb-16"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((proj, idx) => (
-              <NetflixCard
+              <div 
                 key={idx}
-                title={proj.title}
-                category={proj.category}
-                tags={proj.tags}
-                imageSrc={proj.imageSrc}
-                videoSrc={proj.videoSrc}
-                href={proj.href}
-                onClickDetails={() => openLightbox("video", proj.videoSrc)}
-              />
+                className="sticky md:static transition-all duration-500"
+                style={{ 
+                  top: `calc(6rem + ${idx * 1.5}rem)`,
+                  zIndex: idx 
+                }}
+              >
+                <NetflixCard
+                  title={proj.title}
+                  category={proj.category}
+                  tags={proj.tags}
+                  imageSrc={proj.imageSrc}
+                  videoSrc={proj.videoSrc}
+                  href={proj.href}
+                  onClickDetails={() => openLightbox("video", proj.videoSrc)}
+                />
+              </div>
             ))}
           </div>
 

@@ -129,31 +129,6 @@ export default function ProjectDetailPage({ params }: PageProps) {
         
         <div className="absolute inset-0 bg-transparent md:bg-black/40 pointer-events-none" />
         
-        <div className="hidden md:flex absolute inset-0 flex-col items-center justify-center pointer-events-none px-4 text-center">
-          <h1 className="text-6xl md:text-[8vw] font-serif font-bold uppercase tracking-tighter text-white/90 mb-2 md:mb-4 flex flex-wrap justify-center gap-x-[2vw]">
-            {project.title.split(' ').map((word, i) => (
-              <span key={i} className="overflow-hidden inline-block pb-4 md:pb-8 -mb-4 md:-mb-8">
-                <motion.span 
-                  className="block origin-bottom-left"
-                  initial={{ y: '120%', rotateZ: 5, opacity: 0 }}
-                  animate={{ y: '0%', rotateZ: 0, opacity: 0.5 }}
-                  transition={{ duration: 1.8, delay: 0.8 + (i * 0.1), ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <span className="bg-gradient-to-r from-white via-white/80 to-accent bg-clip-text text-transparent drop-shadow-lg">{word}</span>
-                </motion.span>
-              </span>
-            ))}
-          </h1>
-          <motion.p 
-            className="text-accent font-mono font-bold uppercase text-sm md:text-base tracking-[0.3em]"
-            initial={{ opacity: 0, filter: 'blur(10px)', letterSpacing: '0.8em', y: 10 }}
-            animate={{ opacity: 1, filter: 'blur(0px)', letterSpacing: '0.3em', y: 0 }}
-            transition={{ duration: 1.5, delay: 1.4, ease: 'easeOut' }}
-          >
-            {project.category}
-          </motion.p>
-        </div>
-        
         {project.videoSrc && (
           <button 
             onClick={() => setIsMuted(!isMuted)}
@@ -175,12 +150,12 @@ export default function ProjectDetailPage({ params }: PageProps) {
             <ArrowLeft className="w-4 h-4" /> Back to projects
           </Link>
 
-          {/* Mobile Title Block */}
-          <div className="md:hidden mb-12 pb-12 border-b border-border/50">
-            <h1 className="text-4xl sm:text-5xl font-serif font-bold uppercase tracking-tighter text-heading mb-4 leading-tight">
+          {/* Title Block */}
+          <div className="mb-12 pb-12 border-b border-border/50">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4vw] font-serif font-bold uppercase tracking-tighter text-heading mb-4 leading-tight">
               {project.title}
             </h1>
-            <p className="text-accent font-mono font-bold uppercase text-xs tracking-[0.2em]">
+            <p className="text-accent font-mono font-bold uppercase text-xs md:text-sm tracking-[0.2em]">
               {project.category}
             </p>
           </div>

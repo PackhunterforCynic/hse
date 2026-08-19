@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import InternshipEmail from "@/emails/InternshipEmail";
+import { render } from "@react-email/components";
 
-const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy");
+const resend = new Resend(process.env.RESEND_API_KEY as string);
 
 export async function POST(req: Request) {
   try {
@@ -34,21 +35,23 @@ export async function POST(req: Request) {
     const arrayBuffer = await resumeFile.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
+    const html = await render(InternshipEmail({
+      fullName,
+      email,
+      phone,
+      track,
+      fieldOfStudy,
+      experience,
+      pitch,
+      portfolioUrl,
+    }));
+
     // Send the email
     const data = await resend.emails.send({
-      from: "Havilah Pro <onboarding@resend.dev>", // Replace with verified domain
-      to: "praiseayodejiofficial@gmail.com", // Replace with your receiving email
+      from: process.env.FROM_EMAIL as string,
+      to: process.env.CONTACT_EMAIL as string,
       subject: `New Internship Application: ${track} - ${fullName}`,
-      react: InternshipEmail({
-        fullName,
-        email,
-        phone,
-        track,
-        fieldOfStudy,
-        experience,
-        pitch,
-        portfolioUrl,
-      }),
+      html: html,
       attachments: [
         {
           filename: resumeFile.name || "resume.pdf",

@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import AppointmentEmail from "@/emails/AppointmentEmail";
+import { render } from "@react-email/components";
 
-const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy");
+const resend = new Resend(process.env.RESEND_API_KEY as string);
 
 export async function POST(req: Request) {
   try {
@@ -22,27 +23,28 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true, simulated: true });
     }
 
-    // Send the email
+    const html = await render(AppointmentEmail({
+      name,
+      email,
+      mobile,
+      service,
+      date,
+      time,
+      notes,
+    }));
+
     const data = await resend.emails.send({
-      from: "Havilah Pro <onboarding@resend.dev>", // Replace with verified domain
-      to: "praiseayodejiofficial@gmail.com", // Replace with your receiving email
+      from: process.env.FROM_EMAIL as string,
+      to: process.env.CONTACT_EMAIL as string,
       subject: `New Booking Request: ${service} - ${name}`,
-      react: AppointmentEmail({
-        name,
-        email,
-        mobile,
-        service,
-        date,
-        time,
-        notes,
-      }),
+      html: html,
     });
 
     return NextResponse.json({ success: true, data });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error sending appointment email:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to send email." },
+      { success: false, error: "Failed to send email.", details: error.message },
       { status: 500 }
     );
   }

@@ -328,7 +328,7 @@ export default function TranslateWidget() {
       <div id="google_translate_element" className="hidden" />
       {/* Only load Google Translate if marketing cookies are consented */}
       {translateEnabled && (
-        <Script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="lazyOnload" />
+        <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="lazyOnload" />
       )}
       
       <button

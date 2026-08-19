@@ -8,7 +8,7 @@ import {
   Text,
   Heading,
   Hr,
-  Img,
+  Button,
 } from "@react-email/components";
 
 interface ContactEmailProps {
@@ -57,6 +57,18 @@ export const ContactEmail = ({
             <Text style={messageBox}>
               {message}
             </Text>
+
+            <Hr style={hr} />
+            <Section style={actionsSection}>
+              <Button href={`mailto:${email}`} style={replyButton}>
+                Reply to Client
+              </Button>
+              {phone && (
+                <Button href={`tel:${phone}`} style={callButton}>
+                  Call Client
+                </Button>
+              )}
+            </Section>
           </Section>
           
           <Section style={footer}>
@@ -158,4 +170,34 @@ const footerText = {
   fontSize: "12px",
   textAlign: "center" as const,
   margin: "0",
+};
+
+const actionsSection = {
+  textAlign: "center" as const,
+  marginTop: "20px",
+  marginBottom: "10px",
+};
+
+const replyButton = {
+  backgroundColor: "#c9a84c",
+  color: "#000000",
+  fontWeight: "bold",
+  fontSize: "14px",
+  padding: "12px 24px",
+  borderRadius: "4px",
+  textDecoration: "none",
+  marginRight: "10px",
+  display: "inline-block",
+};
+
+const callButton = {
+  backgroundColor: "#222222",
+  color: "#ffffff",
+  fontWeight: "bold",
+  fontSize: "14px",
+  padding: "12px 24px",
+  borderRadius: "4px",
+  textDecoration: "none",
+  display: "inline-block",
+  border: "1px solid #444444",
 };

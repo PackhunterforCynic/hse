@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import ContactEmail from "@/emails/ContactEmail";
+import { render } from "@react-email/components";
 
 // Initialize Resend
 // Note: You must add RESEND_API_KEY to your .env.local file
@@ -25,26 +26,47 @@ export async function POST(req: Request) {
     }
 
     // Send the email
-    const data = await resend.emails.send({
-      from: "Havilah Pro <onboarding@resend.dev>", // Replace with your verified domain
-      to: "praiseayodejiofficial@gmail.com", // Replace with your receiving email
+    const html = await render(ContactEmail({
+      name,
+      email,
+      phone,
+      service,
+      subService,
+      budget,
+      message,
+    }));
+
+    const resendApiKey = process.env.RESEND_API_KEY as string;
+    const emailPayload = {
+      from: process.env.FROM_EMAIL as string,
+      to: process.env.CONTACT_EMAIL as string,
       subject: `New Havilah Inquiry: ${service} - ${name}`,
-      react: ContactEmail({
-        name,
-        email,
-        phone,
-        service,
-        subService,
-        budget,
-        message,
-      }),
+      html: html,
+    };
+
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${resendApiKey}`,
+      },
+      body: JSON.stringify(emailPayload),
     });
 
-    return NextResponse.json({ success: true, data });
-  } catch (error) {
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Resend fetch error text:", errorText);
+      throw new Error(`Resend API error (${res.status}): ${errorText}`);
+    }
+
+    const response = await res.json();
+    console.log("Resend response:", response);
+
+    return NextResponse.json({ success: true, data: response });
+  } catch (error: any) {
     console.error("Error sending contact email:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to send email." },
+      { success: false, error: "Failed to send email.", details: error.message },
       { status: 500 }
     );
   }

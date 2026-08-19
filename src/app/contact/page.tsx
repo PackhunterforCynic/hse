@@ -245,8 +245,9 @@ export default function ContactPage() {
               <select
                 value={formData.service}
                 onChange={(e) => {
-                  handleInputChange("service", e.target.value);
-                  handleInputChange("subService", "");
+                  setFormData(prev => ({ ...prev, service: e.target.value, subService: "" }));
+                  if (errors.service) setErrors(prev => ({ ...prev, service: "" }));
+                  if (errors.subService) setErrors(prev => ({ ...prev, subService: "" }));
                 }}
                 className="w-full bg-surface/30 border border-border focus:border-accent/50 rounded-xl px-4 py-3 outline-none transition-all duration-300 font-sans text-base text-text appearance-none"
               >
@@ -254,6 +255,7 @@ export default function ContactPage() {
                 <option value="Photography">Photography</option>
                 <option value="Digital Marketing">Digital Marketing</option>
               </select>
+              <div className="absolute right-4 top-[42px] pointer-events-none w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[6px] border-t-text/50" />
             </motion.div>
 
             <AnimatePresence>
