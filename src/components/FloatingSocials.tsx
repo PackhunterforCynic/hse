@@ -73,7 +73,7 @@ export default function FloatingSocials() {
       animate={hidden ? (isMobile ? 'hiddenMobile' : 'hiddenDesktop') : 'visible'}
       transition={{ duration: 0.3, ease: 'easeOut' }}
       className="fixed z-50 flex items-center justify-center 
-                 bottom-6 left-1/2 -translate-x-1/2 flex-row gap-8 bg-surface/80 backdrop-blur-md px-8 py-4 rounded-full border border-border/50
+                 bottom-6 left-6 flex-row gap-5 bg-surface/80 backdrop-blur-md px-5 py-3 rounded-full border border-border/50
                  md:bottom-auto md:left-auto md:top-1/2 md:-translate-y-1/2 md:right-8 md:translate-x-0 md:flex-col md:bg-transparent md:backdrop-blur-none md:border-none md:px-0 md:py-0 md:gap-6"
     >
       {socials.map((social) => (
