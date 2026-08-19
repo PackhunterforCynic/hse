@@ -3,7 +3,7 @@ import { Resend } from "resend";
 import InternshipEmail from "@/emails/InternshipEmail";
 import { render } from "@react-email/components";
 
-const resend = new Resend(process.env.RESEND_API_KEY as string);
+const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy");
 
 export async function POST(req: Request) {
   try {
