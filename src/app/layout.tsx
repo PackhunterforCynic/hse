@@ -38,6 +38,12 @@ export const metadata: Metadata = {
     "multimedia",
     "media agency"
   ],
+  verification: {
+    google: [
+      "nCCuFORTrwEqEaOxVVE49x0IJMf5ISz52eAXWYXEIiI",
+      "ZCpkRcE0jbIKfvvhgdw8zNbSD-_fxY_K809gEl9U-E4"
+    ],
+  },
   openGraph: {
     title: "Havilah Pro | Media & Growth",
     description: "Premium photography, videography, and digital marketing services.",
