@@ -102,7 +102,7 @@ export default function Home() {
       <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black z-10">
         {/* Desktop Video */}
         <video
-          src="/videos/Havilah-Hero.mp4"
+          src="/videos/Havilah.mp4"
           autoPlay
           muted
           loop
@@ -112,7 +112,7 @@ export default function Home() {
         />
         {/* Mobile Video */}
         <video
-          src="/videos/Havilah-Hero.mp4"
+          src="/videos/Havilah.mp4"
           autoPlay
           muted
           loop

@@ -94,7 +94,9 @@ export const projectsData: Project[] = [
     },
     gallery: [
       "/images/real estate/image.avif",
-      "/videos/reaal estate/Real Estate Video 720P.mp4"
+      "/videos/reaal estate/Real Estate Video 720P.mp4",
+      "/videos/reaal estate/Poulomi Florique.mp4",
+      "/videos/reaal estate/Assetz Paradise Mizu & Ski.mp4"
     ],
   },
   {

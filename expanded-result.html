@@ -1,0 +1,1565 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Havilah Pro - Expanded Results & Conclusion</title>
+    <style>
+        body { font-family: "Times New Roman", Times, serif; font-size: 12pt; line-height: 1.6; padding: 20px; max-width: 900px; margin: auto; }
+        h1, h2, h3, h4 { font-family: "Arial", sans-serif; font-weight: bold; }
+        h1 { font-size: 16pt; margin-top: 24pt; margin-bottom: 12pt; text-align: center; text-transform: uppercase; }
+        h2 { font-size: 14pt; margin-top: 20pt; margin-bottom: 10pt; }
+        h3 { font-size: 12pt; margin-top: 14pt; margin-bottom: 8pt; color: #333; }
+        p { margin-bottom: 12pt; text-align: justify; }
+        pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; font-family: "Courier New", Courier, monospace; font-size: 9pt; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; }
+        .page-break { page-break-before: always; }
+        ul, ol { margin-bottom: 12pt; }
+        li { margin-bottom: 6pt; text-align: justify; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; }
+        .download-btn { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; font-family: Arial, sans-serif; font-weight: bold; }
+        .download-btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+<div class="header-container">
+    <div>
+        <h1 style="text-align: left; margin: 0; text-transform: none;">Havilah Pro - Final Chapters</h1>
+        <p style="margin: 0; font-family: Arial;">Expanded Implementation, Coding, Performance & Future</p>
+    </div>
+    <button class="download-btn" onclick="exportHTMLToDoc()">Download as DOCX</button>
+</div>
+
+<div id="export-content">
+    
+    <h1>Chapter 8 — Implementation, Results and Discussions</h1>
+
+    <h2>8.1 Detailed Implementation Outcomes</h2>
+    <p>The implementation phase of the Havilah Pro application represents the culmination of all architectural designs, transitioning conceptual models into a tangible, high-performance web application. This phase was executed using the Next.js 14 App Router, marking a significant structural departure from traditional React architectures. The primary focus during implementation was ensuring modularity, seamless state management, and strict separation of concerns between the client-side user interfaces and the serverless backend execution contexts.</p>
+    
+    <h3>8.1.1 Frontend Architecture & Component Modularity</h3>
+    <p>The frontend architecture was designed utilizing a highly modular component tree. React 18's functional components and hooks were utilized extensively to encapsulate logic and styling. The application is divided into core logical domains: Layouts, UI Components, Context Providers, and Page Views. By isolating elements like the `Navbar`, `Footer`, and `FloatingSocials` into distinct components, the application ensures maximum reusability and minimizes code duplication across different routes. This modularity not only accelerated the initial development lifecycle but also establishes a foundation that allows future developers to introduce new features without destabilizing existing layouts.</p>
+    <p>Furthermore, Tailwind CSS was implemented as the primary styling engine. Rather than relying on monolithic cascading stylesheets that can lead to specificity wars and bloated payloads, Tailwind's utility-first approach allowed styles to be colocated directly within the JSX markup. This implementation guarantees that the final production CSS bundle contains only the classes explicitly utilized in the application, significantly optimizing render times.</p>
+
+    <h3>8.1.2 State Management and Context Architecture</h3>
+    <p>Managing state across a complex React application requires a robust strategy. Havilah Pro implements the React Context API to handle global state variables that are required across deeply nested component trees without resorting to "prop drilling." Several distinct Context Providers were implemented:</p>
+    <ul>
+        <li><strong>Theme Context:</strong> Manages the global light/dark mode preference of the user. It interfaces directly with the browser's `localStorage` to persist user preferences across sessions, and dynamically updates the root HTML element's class list to trigger Tailwind's dark mode selectors seamlessly.</li>
+        <li><strong>Language Context:</strong> Facilitates the Internationalization (i18n) of the platform. It controls the state of the Google Translate widget, ensuring that language preferences are synchronized across all navigation events.</li>
+        <li><strong>Cookie Consent Context:</strong> Manages privacy compliance by tracking whether the user has consented to marketing and analytics scripts, ensuring compliance with global data protection regulations before injecting third-party tracking codes.</li>
+    </ul>
+
+    <h3>8.1.3 Serverless API Integration & Form Handling</h3>
+    <p>A major architectural decision during implementation was the complete removal of a traditional monolithic backend (such as Node.js/Express) and relational database (such as PostgreSQL). Instead, the system relies entirely on Next.js Serverless API routes (`/api/*`). This implementation drastically reduces hosting costs and eliminates database maintenance overhead.</p>
+    <p>Forms across the platform (Contact, Internships, Appointments) were implemented using controlled React components. When a user submits a form, the frontend sanitizes the data and transmits a JSON payload to the corresponding Next.js API route. The API route then acts as a secure middleware, authenticating against the external Resend API using secured environment variables (`RESEND_API_KEY`). The Resend API processes the request and dispatches highly formatted, responsive HTML emails directly to the agency's administrators. This serverless approach guarantees instantaneous lead generation processing while maintaining strict security perimeters, as API keys are never exposed to the client-side bundle.</p>
+
+    <h3>8.1.4 UI/UX Enhancements with Framer Motion</h3>
+    <p>To establish a premium, cinematic identity suitable for a media agency, static UI elements were deemed insufficient. The implementation incorporated `framer-motion`, a production-ready motion library for React. Key elements across the homepage and portfolio grids were wrapped in `motion.div` components. These elements were configured with `initial` and `whileInView` properties, creating staggered, viewport-triggered scroll reveals. This ensures that as users navigate down the page, content gracefully fades and translates into view, providing a fluid and engaging user experience that directly mirrors the high-quality cinematic productions offered by the agency.</p>
+
+    <h3>8.1.5 SEO and Metadata Strategy</h3>
+    <p>Search Engine Optimization (SEO) was a critical requirement for the public-facing platform. The Next.js App Router's built-in Metadata API was utilized to generate unique, statically optimized `&lt;head&gt;` tags for every route. A dynamic `sitemap.ts` was implemented at the root of the `app` directory. This script programmatically iterates over the `projectsData`, `servicesData`, and static routes to output a constantly up-to-date XML sitemap, ensuring that search engine crawlers immediately discover new portfolio additions without manual XML editing.</p>
+    <p>Additionally, JSON-LD structured data (Schema.org) was injected into the root layout, explicitly defining the organization's name, logo, contact points, and social profiles. This semantic implementation greatly increases the probability of the site achieving "Rich Snippets" and knowledge panels within Google Search results.</p>
+
+    <div class="page-break"></div>
+
+    <h2>8.2 Application Source Code</h2>
+    <p>The following pages document the core source code implemented during the development phase. This collection highlights the structural integrity of the Next.js layouts, the serverless API endpoints, and the complex React components governing the user interface.</p>
+
+    <h3>8.2.1 Root Layout Configuration (layout.tsx)</h3><pre>import type { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
+import "./globals.css";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { CookieConsentProvider } from "@/context/CookieConsentContext";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Preloader from "@/components/Preloader";
+import dynamic from "next/dynamic";
+
+const Chatbot = dynamic(() =&gt; import("@/components/Chatbot"), { ssr: false });
+const CookieConsent = dynamic(() =&gt; import("@/components/CookieConsent"), { ssr: false });
+const FloatingSocials = dynamic(() =&gt; import("@/components/FloatingSocials"), { ssr: false });
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://havilahpro.com"),
+  title: "Havilah Pro | Media & Growth",
+  description: "Stories that Inspire. Films that Endure. Brands that Live. Premium photography, videography, and digital marketing services.",
+  keywords: [
+    "photography",
+    "videography",
+    "digital marketing",
+    "Havilah Pro",
+    "Havilah Media and Growth",
+    "premium production house",
+    "filmmaking",
+    "multimedia",
+    "media agency"
+  ],
+  verification: {
+    google: [
+      "nCCuFORTrwEqEaOxVVE49x0IJMf5ISz52eAXWYXEIiI",
+      "ZCpkRcE0jbIKfvvhgdw8zNbSD-_fxY_K809gEl9U-E4"
+    ],
+  },
+  openGraph: {
+    title: "Havilah Pro | Media & Growth",
+    description: "Premium photography, videography, and digital marketing services.",
+    url: "https://havilahpro.com",
+    siteName: "Havilah Pro",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly&lt;{
+  children: React.ReactNode;
+}&gt;) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Havilah Pro",
+    "url": "https://havilahpro.com",
+    "logo": "https://havilahpro.com/icon.svg",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91-7204042538",
+      "contactType": "customer service"
+    },
+    "sameAs": [
+      "https://www.instagram.com/thepraiseayodeji",
+      "https://www.youtube.com/@hsedigitals"
+    ]
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Havilah Pro",
+    "url": "https://havilahpro.com"
+  };
+
+  return (
+    &lt;html lang="en"&gt;
+      &lt;head&gt;
+        &lt;link rel="icon" href="/favicon.svg" type="image/svg+xml" /&gt;
+        &lt;script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        /&gt;
+        &lt;script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        /&gt;
+      &lt;/head&gt;
+      &lt;body className={`${inter.variable} ${playfair.variable} font-sans antialiased min-h-screen flex flex-col`}&gt;
+        &lt;CookieConsentProvider&gt;
+          &lt;LanguageProvider&gt;
+            &lt;ThemeProvider&gt;
+              &lt;Preloader /&gt;
+              &lt;Navbar /&gt;
+              &lt;FloatingSocials /&gt;
+              &lt;main className="flex-grow"&gt;
+                {children}
+              &lt;/main&gt;
+              &lt;Chatbot /&gt;
+              &lt;CookieConsent /&gt;
+              &lt;Footer /&gt;
+            &lt;/ThemeProvider&gt;
+          &lt;/LanguageProvider&gt;
+        &lt;/CookieConsentProvider&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  );
+}
+
+</pre>
+    <h3>8.2.2 Main Landing Page (page.tsx)</h3><pre>"use client";
+
+import React, { useState, useEffect } from "react";
+import Button from "@/components/ui/Button";
+import { SectionHeader } from "@/components/ui/Hero";
+import { NetflixCard, GalleryCard } from "@/components/ui/Card";
+import Timeline from "@/components/ui/Timeline";
+import Counter from "@/components/ui/Counter";
+import Lightbox from "@/components/ui/Lightbox";
+import { Film, Play, ArrowRight, BookOpen, Calendar, Mail, Sparkles, Tv, HelpCircle } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { projectsData } from "@/utils/projectsData";
+import { useLanguage } from "@/context/LanguageContext";
+import Showreel from "@/components/Showreel";
+import ServicesPreview from "@/components/ServicesPreview";
+import { ProductionPipeline } from "@/components/ui/ProductionPipeline";
+import ClientMarquee from "@/components/ClientMarquee";
+
+export default function Home() {
+  const { t } = useLanguage();
+  // Global Lightbox State
+  const [lightbox, setLightbox] = useState&lt;{
+    isOpen: boolean;
+    type: "image" | "video" | "youtube";
+    src: string;
+  }&gt;({
+    isOpen: false,
+    type: "image",
+    src: "",
+  });
+
+  const openLightbox = (type: "image" | "video" | "youtube", src: string) =&gt; {
+    setLightbox({ isOpen: true, type, src });
+  };
+
+  const closeLightbox = () =&gt; {
+    setLightbox({ ...lightbox, isOpen: false });
+  };
+
+  // Real Projects Data
+  const projects = projectsData.slice(0, 6).map((p) =&gt; ({
+    title: p.title,
+    category: p.category,
+    tags: p.tags,
+    imageSrc: p.imageSrc,
+    videoSrc: p.videoSrc,
+    href: `/projects/${p.slug}`,
+  }));
+
+  const services = [
+    {
+      title: "Film Production",
+      description: "Award-winning film and commercial production sets.",
+      badge: "Productions",
+      href: "/services/film-production",
+    },
+    {
+      title: "Photography",
+      description: "Editorial and brand photography with a distinctive visual language.",
+      badge: "Stills",
+      href: "/services/photography",
+    },
+    {
+      title: "Digital Marketing",
+      description: "End-to-end digital growth and brand solutions.",
+      badge: "Growth",
+      href: "/services/digital-marketing",
+    },
+  ];
+
+  const timelineSteps = [
+    {
+      step: "01",
+      title: "Pre-Production Planning",
+      description: "We map out script treatments, character storyboards, location scouts, casting grids, and scheduling boards.",
+    },
+    {
+      step: "02",
+      title: "Cinematic Principal Photography",
+      description: "Our crew shoots using luxury camera systems, custom anamorphic lenses, and precision lighting sets.",
+    },
+    {
+      step: "03",
+      title: "Post-Production Crafting",
+      description: "We handle color matching, Dolby Atmos mixing, cinematic edit grading, and final delivery outputs.",
+    },
+  ];
+
+
+  const galleryItems = projectsData
+    .map((project) =&gt; ({
+      title: project.title,
+      category: "bts" as const,
+      imageSrc: project.imageSrc,
+    }))
+    .slice(0, 6);
+
+  return (
+    &lt;div className="relative min-h-screen"&gt;
+      {/* 1. FULLSCREEN VIDEO HERO */}
+      &lt;section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black z-10"&gt;
+        {/* Desktop Video */}
+        &lt;video
+          src="/videos/Havilah-Hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/indo korean/011.webp"
+          className="absolute inset-0 w-full h-full object-cover opacity-50 z-0 scale-105 hidden md:block"
+        /&gt;
+        {/* Mobile Video */}
+        &lt;video
+          src="/videos/Havilah-Hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/indo korean/011.webp"
+          className="absolute inset-0 w-full h-full object-cover opacity-50 z-0 scale-105 md:hidden"
+        /&gt;
+
+        {/* Cinematic Shading Gradient overlay */}
+        &lt;div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black z-10" /&gt;
+
+        {/* Hero Content */}
+        &lt;div className="relative max-w-5xl mx-auto px-6 z-20 text-center flex flex-col items-center gap-8"&gt;
+          
+          &lt;h1 className="text-4xl sm:text-6xl md:text-8xl font-serif font-bold text-white tracking-tight leading-tight uppercase animate-fade-in-up"&gt;
+            Where Brands &lt;span className="text-accent italic font-normal lowercase"&gt;Strike Gold&lt;/span&gt;.
+          &lt;/h1&gt;
+
+          &lt;p className="text-base sm:text-lg md:text-xl text-white/70 max-w-3xl leading-relaxed animate-fade-in font-medium"&gt;
+            Havilah is a media and growth marketing studio for people and companies with something worth telling — and worth growing.
+          &lt;/p&gt;
+
+          &lt;p className="text-xs sm:text-sm text-accent/90 uppercase tracking-[0.2em] font-mono animate-fade-in font-semibold"&gt;
+            We shoot it. We shape it. We scale it.
+          &lt;/p&gt;
+
+          &lt;div className="flex flex-col sm:flex-row items-center gap-4 mt-4 animate-fade-in"&gt;
+            &lt;Button
+              variant="primary"
+              size="lg"
+              onClick={() =&gt; {
+                const projectSection = document.getElementById("projects");
+                projectSection?.scrollIntoView({ behavior: "smooth" });
+              }}
+            &gt;
+              Explore Productions &lt;ArrowRight className="w-4 h-4 ml-1" /&gt;
+            &lt;/Button&gt;
+            &lt;Link href="/contact" className="w-full sm:w-auto"&gt;
+              &lt;Button
+                variant="secondary"
+                size="lg"
+                className="w-full"
+              &gt;
+                &lt;Mail className="w-4 h-4 text-accent" /&gt; Contact Us
+              &lt;/Button&gt;
+            &lt;/Link&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        {/* Scroll cue mouse loop */}
+        &lt;div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity"&gt;
+          &lt;span className="text-[9px] font-bold text-white uppercase tracking-[0.3em]"&gt;Scroll Down&lt;/span&gt;
+          &lt;div className="w-6 h-10 rounded-full border border-white/40 flex justify-center p-1.5"&gt;
+            &lt;div className="w-1 h-2 rounded-full bg-accent animate-bounce" /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      {/* 2. STATISTICS COUNTERS SECTION */}
+      &lt;section className="py-20 border-b border-border bg-background relative z-20"&gt;
+        &lt;div className="max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-6"&gt;
+          &lt;Counter end={150} suffix="+" label="Productions Completed" /&gt;
+          &lt;Counter end={40} suffix="k+" label="Academy Students" /&gt;
+          &lt;Counter end={12} suffix="" label="Creative Awards" /&gt;
+          &lt;Counter end={5} suffix="" label="Global Offices" /&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      {/* 3. FEATURED PROJECTS SECTION */}
+      &lt;section id="projects" className="py-24 border-b border-border bg-background relative z-20"&gt;
+        &lt;div className="max-w-7xl mx-auto px-6"&gt;
+          &lt;SectionHeader
+            badge="Portfolio"
+            title={t("home.featured")}
+            italicTitle="Productions"
+            description="Explore our curated gallery of feature narratives, high-impact commercials, and award-winning documentaries."
+            className="mb-16"
+          /&gt;
+
+          &lt;div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-8"&gt;
+            {projects.map((proj, idx) =&gt; (
+              &lt;div 
+                key={idx}
+                className="sticky md:static transition-all duration-500"
+                style={{ 
+                  top: `calc(6rem + ${idx * 1.5}rem)`,
+                  zIndex: idx 
+                }}
+              &gt;
+                &lt;NetflixCard
+                  title={proj.title}
+                  category={proj.category}
+                  tags={proj.tags}
+                  imageSrc={proj.imageSrc}
+                  videoSrc={proj.videoSrc}
+                  href={proj.href}
+                  onClickDetails={() =&gt; openLightbox("video", proj.videoSrc)}
+                /&gt;
+              &lt;/div&gt;
+            ))}
+          &lt;/div&gt;
+
+          &lt;div className="text-center mt-16"&gt;
+            &lt;Link href="/projects"&gt;
+              &lt;Button variant="gold-outline"&gt;View All Projects&lt;/Button&gt;
+            &lt;/Link&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      {/* 3.5. CINEMATIC SHOWREEL SECTION */}
+      &lt;Showreel /&gt;
+
+      {/* 3.6. PRODUCTION PIPELINE SCROLLYTELLING */}
+      &lt;ProductionPipeline /&gt;
+
+      {/* 4. SERVICES OVERVIEW SECTION */}
+      &lt;section className="py-24 border-b border-border bg-surface/30 backdrop-blur-sm relative z-20"&gt;
+        &lt;div className="max-w-7xl mx-auto px-6"&gt;
+          &lt;SectionHeader
+            badge="Capabilities"
+            title="Creative"
+            italicTitle="Studio Services"
+            description="We bridge the gap between creative visual artistry and strategic market positioning."
+            className="mb-16"
+          /&gt;
+
+          &lt;div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"&gt;
+            {services.map((serv, idx) =&gt; (
+              &lt;div
+                key={idx}
+                className="glassmorphism-card p-8 rounded-xl flex flex-col gap-6 hover:border-accent/40 hover:-translate-y-1 transition-all duration-300 group"
+              &gt;
+                &lt;div className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-accent bg-surface group-hover:border-accent group-hover:bg-accent/10 transition-colors"&gt;
+                  &lt;Sparkles className="w-5 h-5" /&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                  &lt;span className="text-[10px] font-bold text-accent tracking-widest uppercase block mb-1"&gt;
+                    {serv.badge}
+                  &lt;/span&gt;
+                  &lt;h3 className="font-serif text-lg font-bold text-text group-hover:text-accent transition-colors"&gt;
+                    {serv.title}
+                  &lt;/h3&gt;
+                  &lt;p className="text-xs text-text/60 mt-3 leading-relaxed"&gt;
+                    {serv.description}
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;Link
+                  href={serv.href}
+                  className="mt-auto text-[10px] font-bold text-accent group-hover:text-accent-hover uppercase tracking-widest flex items-center gap-1.5"
+                &gt;
+                  Learn More &lt;ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" /&gt;
+                &lt;/Link&gt;
+              &lt;/div&gt;
+            ))}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      {/* 4. SERVICES OVERVIEW SECTION */}
+      &lt;ServicesPreview /&gt;
+
+      {/* 5. CLIENT MARQUEE */}
+      &lt;ClientMarquee /&gt;
+
+      {/* 9. CINEMATIC GALLERY PREVIEW */}
+      &lt;section className="py-24 border-b border-border bg-background relative z-20"&gt;
+        &lt;div className="max-w-7xl mx-auto px-6"&gt;
+          &lt;div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"&gt;
+            &lt;SectionHeader
+              badge="Behind The Scenes"
+              title="Studio Still"
+              italicTitle="Gallery Preview"
+              description="Captured moments from active shoot sets, drone sweeps, and sound stage setups."
+              alignment="left"
+              className="m-0"
+            /&gt;
+            &lt;Link href="/gallery"&gt;
+              &lt;Button variant="gold-outline"&gt;Browse Gallery&lt;/Button&gt;
+            &lt;/Link&gt;
+          &lt;/div&gt;
+
+          &lt;div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"&gt;
+            {galleryItems.map((item, idx) =&gt; (
+              &lt;GalleryCard
+                key={idx}
+                title={item.title}
+                category={item.category}
+                imageSrc={item.imageSrc}
+                onClick={() =&gt; openLightbox("image", item.imageSrc)}
+              /&gt;
+            ))}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      {/* 10. CONTACT CTA SECTION */}
+      &lt;section className="py-32 bg-surface/40 relative overflow-hidden z-20"&gt;
+        {/* Gold light leak backdrops */}
+        &lt;div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(201,168,76,0.06),transparent_60%)] pointer-events-none" /&gt;
+
+        &lt;div className="max-w-5xl mx-auto px-6 text-center flex flex-col items-center gap-8 relative z-10"&gt;
+          &lt;SectionHeader
+            badge="Ready to Collaborate?"
+            title="Let's Film Your"
+            italicTitle="Next Masterpiece"
+            description="Whether you have a script that needs a crew, a brand that needs a vision, or you are looking to register for academy workshops, our studio doors are open."
+            className="mb-4"
+          /&gt;
+
+          &lt;div className="flex flex-col sm:flex-row items-center gap-4"&gt;
+            &lt;Link href="/requests"&gt;
+              &lt;Button variant="primary" size="lg"&gt;
+                Inquire Project Quote
+              &lt;/Button&gt;
+            &lt;/Link&gt;
+            &lt;Link href="/appointments"&gt;
+              &lt;Button variant="secondary" size="lg"&gt;
+                Schedule Call Briefing
+              &lt;/Button&gt;
+            &lt;/Link&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      {/* GLOBAL LIGHTBOX OVERLAY */}
+      &lt;Lightbox
+        isOpen={lightbox.isOpen}
+        onClose={closeLightbox}
+        mediaType={lightbox.type}
+        mediaSrc={lightbox.src}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+</pre>
+    <h3>8.2.3 Contact API Route (api/contact/route.ts)</h3><pre>import { NextResponse } from "next/server";
+import { Resend } from "resend";
+import ContactEmail from "@/emails/ContactEmail";
+import { render } from "@react-email/components";
+
+// Initialize Resend
+// Note: You must add RESEND_API_KEY to your .env.local file
+const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy");
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const { name, email, phone, service, subService, budget, message } = body;
+
+    // Validate minimum required fields
+    if (!name || !email || !message) {
+      return NextResponse.json(
+        { success: false, error: "Name, email, and message are required." },
+        { status: 400 }
+      );
+    }
+
+    if (!process.env.RESEND_API_KEY) {
+      console.warn("RESEND_API_KEY is not set. Simulating success.");
+      return NextResponse.json({ success: true, simulated: true });
+    }
+
+    // Send the email
+    const html = await render(ContactEmail({
+      name,
+      email,
+      phone,
+      service,
+      subService,
+      budget,
+      message,
+    }));
+
+    const resendApiKey = process.env.RESEND_API_KEY as string;
+    const emailPayload = {
+      from: process.env.FROM_EMAIL as string,
+      to: process.env.CONTACT_EMAIL as string,
+      subject: `New Havilah Inquiry: ${service} - ${name}`,
+      html: html,
+    };
+
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${resendApiKey}`,
+      },
+      body: JSON.stringify(emailPayload),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Resend fetch error text:", errorText);
+      throw new Error(`Resend API error (${res.status}): ${errorText}`);
+    }
+
+    const response = await res.json();
+    console.log("Resend response:", response);
+
+    return NextResponse.json({ success: true, data: response });
+  } catch (error: any) {
+    console.error("Error sending contact email:", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to send email.", details: error.message },
+      { status: 500 }
+    );
+  }
+}
+</pre>
+    <h3>8.2.4 Appointments API Route (api/appointments/route.ts)</h3><pre>import { NextResponse } from "next/server";
+import { Resend } from "resend";
+import AppointmentEmail from "@/emails/AppointmentEmail";
+import { render } from "@react-email/components";
+
+const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy");
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const { name, email, mobile, service, date, time, notes } = body;
+
+    // Validate minimum required fields
+    if (!name || !email || !service || !date || !time) {
+      return NextResponse.json(
+        { success: false, error: "Missing required booking details." },
+        { status: 400 }
+      );
+    }
+
+    if (!process.env.RESEND_API_KEY) {
+      console.warn("RESEND_API_KEY is not set. Simulating success.");
+      return NextResponse.json({ success: true, simulated: true });
+    }
+
+    const html = await render(AppointmentEmail({
+      name,
+      email,
+      mobile,
+      service,
+      date,
+      time,
+      notes,
+    }));
+
+    const data = await resend.emails.send({
+      from: process.env.FROM_EMAIL as string,
+      to: process.env.CONTACT_EMAIL as string,
+      subject: `New Booking Request: ${service} - ${name}`,
+      html: html,
+    });
+
+    return NextResponse.json({ success: true, data });
+  } catch (error: any) {
+    console.error("Error sending appointment email:", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to send email.", details: error.message },
+      { status: 500 }
+    );
+  }
+}
+</pre>
+    
+    <h3>8.2.6 AI Chatbot Interface (Chatbot.tsx)</h3><pre>"use client";
+
+import React, { useState, useRef, useEffect } from "react";
+import { Bot, X, Send, MessageSquare } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+interface Message {
+  role: "user" | "assistant";
+  text: string;
+}
+
+export default function Chatbot() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [history, setHistory] = useState&lt;Message[]&gt;([
+    { role: "assistant", text: "Welcome to Havilah. Ask me anything about our cinematic productions, services, academy, or internships." }
+  ]);
+  const [loading, setLoading] = useState(false);
+
+  const scrollRef = useRef&lt;HTMLDivElement&gt;(null);
+
+  useEffect(() =&gt; {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [history, loading]);
+
+  const handleSend = async (textToSend: string) =&gt; {
+    if (!textToSend.trim()) return;
+
+    const userMsg: Message = { role: "user", text: textToSend };
+    setHistory((prev) =&gt; [...prev, userMsg]);
+    setMessage("");
+    setLoading(true);
+
+    try {
+      const chatHistory = history.map((h) =&gt; ({
+        role: h.role,
+        text: h.text,
+      }));
+
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: textToSend, history: chatHistory }),
+      });
+
+      const data = await res.json();
+      const replyMsg: Message = { role: "assistant", text: data.reply || "No response received." };
+      setHistory((prev) =&gt; [...prev, replyMsg]);
+    } catch (err) {
+      setHistory((prev) =&gt; [
+        ...prev,
+        { role: "assistant", text: "I'm having trouble connecting to the server. Please try again." }
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const suggestions = [
+    "Tell me about wedding projects",
+    "Explore Academy courses",
+    "How to rent soundstages",
+  ];
+
+  return (
+    &lt;div className="fixed bottom-6 right-6 z-[999]"&gt;
+      &lt;AnimatePresence&gt;
+        {!isOpen && (
+          &lt;motion.button
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            onClick={() =&gt; setIsOpen(true)}
+            aria-label="Toggle Chatbot"
+            className="w-14 h-14 rounded-full bg-accent text-background flex items-center justify-center shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 group"
+          &gt;
+            &lt;MessageSquare className="w-6 h-6 group-hover:rotate-6 transition-transform" /&gt;
+          &lt;/motion.button&gt;
+        )}
+      &lt;/AnimatePresence&gt;
+
+      &lt;AnimatePresence&gt;
+        {isOpen && (
+          &lt;motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="w-[360px] sm:w-[400px] h-[500px] rounded-2xl border border-border bg-surface/95 backdrop-blur-xl shadow-2xl overflow-hidden flex flex-col justify-between"
+          &gt;
+            {/* Header */}
+            &lt;div className="bg-background/80 px-6 py-4 border-b border-border flex items-center justify-between"&gt;
+              &lt;div className="flex items-center gap-3"&gt;
+                &lt;div className="w-8 h-8 rounded-full bg-accent/15 border border-accent flex items-center justify-center text-accent"&gt;
+                  &lt;Bot className="w-4 h-4" /&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                  &lt;h4 className="text-xs font-bold text-text uppercase tracking-wider block"&gt;Havilah Assistant&lt;/h4&gt;
+                  &lt;span className="text-[9px] text-accent font-semibold uppercase tracking-widest flex items-center gap-1.5"&gt;
+                    &lt;span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" /&gt; Active Client Mode
+                  &lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;button
+                onClick={() =&gt; setIsOpen(false)}
+                className="p-1 rounded-full text-text/40 hover:text-text hover:bg-border/30 transition-colors"
+                aria-label="Close chat"
+              &gt;
+                &lt;X className="w-4 h-4" /&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+
+            {/* Chat Body */}
+            &lt;div ref={scrollRef} className="flex-grow p-6 overflow-y-auto flex flex-col gap-4"&gt;
+              {history.map((msg, idx) =&gt; (
+                &lt;div
+                  key={idx}
+                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                &gt;
+                  &lt;div
+                    className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-xs leading-relaxed ${
+                      msg.role === "user"
+                        ? "bg-accent text-background font-semibold rounded-tr-none"
+                        : "bg-background border border-border text-text/80 rounded-tl-none"
+                    }`}
+                  &gt;
+                    {msg.text}
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              ))}
+              {loading && (
+                &lt;div className="flex justify-start"&gt;
+                  &lt;div className="bg-background border border-border text-text/50 rounded-2xl rounded-tl-none px-4 py-3 flex gap-1 items-center"&gt;
+                    &lt;span className="w-1.5 h-1.5 bg-accent rounded-full animate-bounce" /&gt;
+                    &lt;span className="w-1.5 h-1.5 bg-accent rounded-full animate-bounce delay-100" /&gt;
+                    &lt;span className="w-1.5 h-1.5 bg-accent rounded-full animate-bounce delay-200" /&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              )}
+            &lt;/div&gt;
+
+            {/* Suggestions Chips & Inputs Footer */}
+            &lt;div className="p-4 bg-background/50 border-t border-border flex flex-col gap-3"&gt;
+              {history.length === 1 && (
+                &lt;div className="flex flex-wrap gap-1.5"&gt;
+                  {suggestions.map((s, idx) =&gt; (
+                    &lt;button
+                      key={idx}
+                      onClick={() =&gt; handleSend(s)}
+                      className="text-[9px] font-bold text-accent border border-accent/20 bg-accent/5 px-2.5 py-1 rounded-full hover:bg-accent hover:text-background transition-all"
+                    &gt;
+                      {s}
+                    &lt;/button&gt;
+                  ))}
+                &lt;/div&gt;
+              )}
+              &lt;form
+                onSubmit={(e) =&gt; {
+                  e.preventDefault();
+                  handleSend(message);
+                }}
+                className="flex items-center gap-2"
+              &gt;
+                &lt;input
+                  type="text"
+                  placeholder="Ask anything about Havilah..."
+                  value={message}
+                  onChange={(e) =&gt; setMessage(e.target.value)}
+                  className="flex-grow px-3 py-2 bg-background border border-border text-xs rounded-xl focus:outline-none focus:border-accent text-text"
+                /&gt;
+                &lt;button
+                  type="submit"
+                  className="p-2 rounded-xl bg-accent text-background hover:bg-accent-hover transition-colors"
+                  aria-label="Send message"
+                &gt;
+                  &lt;Send className="w-4 h-4" /&gt;
+                &lt;/button&gt;
+              &lt;/form&gt;
+            &lt;/div&gt;
+          &lt;/motion.div&gt;
+        )}
+      &lt;/AnimatePresence&gt;
+    &lt;/div&gt;
+  );
+}
+</pre>
+    <h3>8.2.7 Floating Social Media Component (FloatingSocials.tsx)</h3><pre>"use client";
+
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+
+export default function FloatingSocials() {
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() =&gt; {
+    setIsMobile(window.innerWidth &lt; 768);
+    const handleResize = () =&gt; setIsMobile(window.innerWidth &lt; 768);
+    window.addEventListener("resize", handleResize);
+    return () =&gt; window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useMotionValueEvent(scrollY, "change", (latest) =&gt; {
+    const previous = scrollY.getPrevious() || 0;
+    if (latest &gt; previous && latest &gt; 150) {
+      setHidden(true); // Scrolling down
+    } else {
+      setHidden(false); // Scrolling up
+    }
+  });
+
+  const socials = [
+    {
+      platform: "Instagram",
+      url: "https://www.instagram.com/thepraiseayodeji",
+      theme: "hover:text-[#E1306C]",
+      icon: (
+        &lt;svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"&gt;
+          &lt;rect width="20" height="20" x="2" y="2" rx="5" ry="5"/&gt;
+          &lt;path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/&gt;
+          &lt;line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/&gt;
+        &lt;/svg&gt;
+      )
+    },
+    {
+      platform: "YouTube",
+      url: "https://www.youtube.com/@hsedigitals",
+      theme: "hover:text-[#FF0000]",
+      icon: (
+        &lt;svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"&gt;
+          &lt;path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/&gt;
+          &lt;path d="m10 15 5-3-5-3z"/&gt;
+        &lt;/svg&gt;
+      )
+    },
+    {
+      platform: "WhatsApp",
+      url: "https://wa.me/917204042538?text=Hi%20Havilah!%20I%20would%20like%20to%20discuss%20a%20project%20with%20you.",
+      theme: "hover:text-[#25D366]",
+      icon: (
+        &lt;svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"&gt;
+          &lt;path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.061-.3-.15-1.265-.462-2.406-1.474-.889-.788-1.488-1.761-1.663-2.062-.175-.3-.018-.461.131-.611.135-.133.3-.347.451-.52.146-.174.196-.3.296-.496.1-.197.05-.37-.025-.52-.075-.149-.672-1.62-.922-2.216-.24-.585-.49-.505-.67-.514-.175-.01-.376-.01-.575-.01-.2 0-.523.074-.798.371-.274.296-1.049 1.02-1.049 2.489 0 1.47 1.074 2.888 1.222 3.087.15.197 2.105 3.197 5.094 4.475.713.305 1.267.488 1.7.625.716.227 1.365.194 1.879.117.576-.085 1.767-.718 2.016-1.413.25-.694.25-1.288.175-1.412-.074-.124-.274-.197-.574-.347z"/&gt;
+          &lt;path d="M12 21.996c-1.574 0-3.118-.4-4.472-1.157l-4.972 1.303 1.32-4.823A9.914 9.914 0 012.004 12C2.004 6.485 6.489 2 12 2s9.996 4.485 9.996 10-4.481 9.996-9.996 9.996z"/&gt;
+        &lt;/svg&gt;
+      )
+    },
+  ];
+
+  return (
+    &lt;motion.div 
+      variants={{
+        visible: { opacity: 1, x: 0, y: 0 },
+        hiddenDesktop: { opacity: 0, x: 20 },
+        hiddenMobile: { opacity: 0, y: 50 }
+      }}
+      initial="visible"
+      animate={hidden ? (isMobile ? 'hiddenMobile' : 'hiddenDesktop') : 'visible'}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      className="fixed z-50 flex items-center justify-center 
+                 bottom-6 left-6 flex-row gap-5 bg-surface/80 backdrop-blur-md px-5 py-3 rounded-full border border-border/50
+                 md:bottom-auto md:left-auto md:top-1/2 md:-translate-y-1/2 md:right-8 md:translate-x-0 md:flex-col md:bg-transparent md:backdrop-blur-none md:border-none md:px-0 md:py-0 md:gap-6"
+    &gt;
+      {socials.map((social) =&gt; (
+        &lt;a
+          key={social.platform}
+          href={social.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`text-white/50 ${social.theme} transition-colors duration-300 hover:scale-110 transform`}
+          aria-label={social.platform}
+        &gt;
+          {social.icon}
+        &lt;/a&gt;
+      ))}
+    &lt;/motion.div&gt;
+  );
+}
+</pre>
+    <h3>8.2.8 Projects Data Structure (projectsData.ts)</h3><pre>export interface Project {
+  slug: string;
+  title: string;
+  category: string;
+  tags: string[];
+  imageSrc: string;
+  videoSrc: string;
+  client: string;
+  year: string;
+  role: string;
+  story: string;
+  challenge: string;
+  solution: string;
+  credits: { role: string; name: string }[];
+  testimonial: {
+    name: string;
+    role: string;
+    company?: string;
+    quote: string;
+    thumbnailUrl: string;
+    videoUrl?: string;
+  };
+  gallery: string[];
+}
+
+export const projectsData: Project[] = [
+  {
+    slug: "indo-korean",
+    title: "Indo Korean",
+    category: "Corporate",
+    tags: ["Documentary", "Culture", "Cinematic"],
+    imageSrc: "/images/indo korean/011.webp",
+    videoSrc: "/videos/indo korean/Indo Korean.mp4",
+    client: "Indo-Korean Cultural Society",
+    year: "2025",
+    role: "Full Production & Direction",
+    story: "Exploring the rich cultural intersections between India and Korea, this documentary weaves together personal narratives, culinary traditions, and visual artistry into a seamless, cinematic journey.",
+    challenge: "Bridging the cultural dialogue and documenting historical linkages in high-contrast cinematic styles under natural outdoor lighting conditions.",
+    solution: "Utilized dual camera rigs and custom anamorphic lenses, capturing authentic cross-cultural exchanges and color grading the warm aesthetic.",
+    credits: [
+      { role: "Director / DP", name: "Praise" },
+    ],
+    testimonial: {
+      name: "Marcus Vance",
+      role: "Creative Director",
+      company: "Vanguard Studios",
+      quote: "The visual depth and emotional core of Indo Korean exceeded our expectations. Havilah is a class apart.",
+      thumbnailUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800",
+      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    gallery: [
+      "/images/indo korean/001.webp",
+      "/images/indo korean/002.webp",
+      "/images/indo korean/003.webp",
+      "/images/indo korean/004.webp",
+      "/images/indo korean/005.webp",
+      "/images/indo korean/006.webp",
+      "/images/indo korean/007.webp",
+      "/images/indo korean/008.webp",
+      "/images/indo korean/009.webp",
+      "/images/indo korean/010.webp",
+      "/images/indo korean/011.webp",
+      "/images/indo korean/012.webp",
+      "/images/indo korean/013.webp",
+      "/images/indo korean/014.webp",
+      "/images/indo korean/015.webp",
+      "/images/indo korean/016.webp",
+      "/images/indo korean/017.webp"
+    ],
+  },
+  {
+    slug: "real-estate",
+    title: "Real Estate",
+    category: "Commercials",
+    tags: ["Commercial", "Architecture", "Luxury"],
+    imageSrc: "/images/real estate/image.avif",
+    videoSrc: "/videos/reaal estate/4Bhk Whitefield Near Metro Station.mp4",
+    client: "Whitefield Developments",
+    year: "2026",
+    role: "Drone Aerials & Interior Shifting",
+    story: "A premium showcase of modern architectural marvels. We focused on capturing the scale, light, and luxury of these properties using sweeping drone shots and intimate interior details.",
+    challenge: "Executing steady interior camera movements in tight, complex architectural layout structures while maintaining high lighting fidelity.",
+    solution: "Deployed lightweight, heavy-lift drone stabilizers and shot using wide-angle primes with high exposure latitudes.",
+    credits: [
+      { role: "Director / DP", name: "Praise" },
+    ],
+    testimonial: {
+      name: "Sophia Rossi",
+      role: "Lead Producer",
+      company: "Aura Films",
+      quote: "The commercial spot we launched redefined how our consumer base views our properties. Outstanding results.",
+      thumbnailUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=800",
+      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    gallery: [
+      "/images/real estate/image.avif",
+      "/videos/reaal estate/Real Estate Video 720P.mp4"
+    ],
+  },
+  {
+    slug: "young-indians",
+    title: "Young Indians",
+    category: "Documentaries",
+    tags: ["Documentary", "Portrait", "Gritty"],
+    imageSrc: "/images/young-indians/053.webp",
+    videoSrc: "/videos/YI/Iy-Reel.mp4",
+    client: "Young Indians Youth League",
+    year: "2025",
+    role: "Directing & Editorial Cuts",
+    story: "A gritty, authentic look into the lives of the next generation. We followed subjects across the country to capture their drive, their challenges, and their unbroken spirit.",
+    challenge: "Capturing organic, unscripted moments on location in noisy street corridors and working-class quarters.",
+    solution: "Used compact mirrorless rigs and natural lighting to maintain a minimal crew footprint, earning the trust of local subjects.",
+    credits: [
+      { role: "Director / DP", name: "Praise" },
+    ],
+    testimonial: {
+      name: "Jameson Lee",
+      role: "Head of Marketing",
+      company: "Horizon Auto",
+      quote: "A breathtaking piece of ecological journalism. Their commitment under extreme conditions was phenomenal.",
+      thumbnailUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800",
+      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    gallery: [
+      "/images/young-indians/001.webp",
+      "/images/young-indians/002.webp",
+      "/images/young-indians/003.webp",
+      "/images/young-indians/004.webp",
+      "/images/young-indians/005.webp",
+      "/images/young-indians/006.webp",
+      "/images/young-indians/007.webp",
+      "/images/young-indians/008.webp",
+      "/images/young-indians/009.webp",
+      "/images/young-indians/010.webp",
+      "/images/young-indians/011.webp",
+      "/images/young-indians/012.webp",
+      "/images/young-indians/013.webp",
+      "/images/young-indians/014.webp",
+      "/images/young-indians/015.webp",
+      "/images/young-indians/016.webp",
+      "/images/young-indians/017.webp",
+      "/images/young-indians/018.webp",
+      "/images/young-indians/019.webp",
+      "/images/young-indians/020.webp",
+      "/images/young-indians/021.webp",
+      "/images/young-indians/022.webp",
+      "/images/young-indians/023.webp",
+      "/images/young-indians/024.webp",
+      "/images/young-indians/025.webp",
+      "/images/young-indians/026.webp",
+      "/images/young-indians/027.webp",
+      "/images/young-indians/028.webp",
+      "/images/young-indians/029.webp",
+      "/images/young-indians/030.webp",
+      "/images/young-indians/031.webp",
+      "/images/young-indians/032.webp",
+      "/images/young-indians/033.webp",
+      "/images/young-indians/034.webp",
+      "/images/young-indians/035.webp",
+      "/images/young-indians/036.webp",
+      "/images/young-indians/037.webp",
+      "/images/young-indians/038.webp",
+      "/images/young-indians/039.webp",
+      "/images/young-indians/040.webp",
+      "/images/young-indians/041.webp",
+      "/images/young-indians/042.webp",
+      "/images/young-indians/043.webp",
+      "/images/young-indians/044.webp",
+      "/images/young-indians/045.webp",
+      "/images/young-indians/046.webp",
+      "/images/young-indians/047.webp",
+      "/images/young-indians/048.webp",
+      "/images/young-indians/049.webp",
+      "/images/young-indians/050.webp",
+      "/images/young-indians/051.webp",
+      "/images/young-indians/052.webp",
+      "/images/young-indians/053.webp",
+      "/images/young-indians/054.webp",
+      "/images/young-indians/055.webp",
+      "/images/young-indians/056.webp",
+      "/images/young-indians/057.webp",
+      "/images/young-indians/058.webp",
+      "/images/young-indians/059.webp",
+      "/images/young-indians/060.webp",
+      "/images/young-indians/061.webp",
+      "/images/young-indians/062.webp"
+    ],
+  },
+  {
+    slug: "naveen-sharlien",
+    title: "Naveen Sharlien Wedding",
+    category: "Narratives",
+    tags: ["Wedding", "Love", "Event"],
+    imageSrc: "/images/naveen sharlien/Church/012.webp",
+    videoSrc: "/videos/naveen sharlien/BIKE VINTAGE.mp4",
+    client: "Naveen & Sharlien",
+    year: "2026",
+    role: "Cinematic Capture & Editing",
+    story: "A beautiful celebration of love. We captured the intimate moments, the grand celebrations, and the raw emotions of Naveen and Sharlien’s special day, creating a cinematic wedding film that they will cherish forever.",
+    challenge: "Documenting church ceremony segments under low natural light settings without active flashing equipment.",
+    solution: "Deployed f/1.2 high-speed prime setups and dual-native ISO camera logs to preserve the natural warmth of the church architecture.",
+    credits: [
+      { role: "Director / DP", name: "Praise" },
+    ],
+    testimonial: {
+      name: "Elena Rostova",
+      role: "Academy Alumna",
+      company: "Freelance Director",
+      quote: "The wedding film they developed gave our celebration an unmatched visual warmth. Brilliant work.",
+      thumbnailUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800",
+      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    gallery: [
+      "/images/naveen sharlien/001.png",
+      "/videos/naveen sharlien/NAVEEN SHARLIEN PHOTOSLIDESHOW.mp4",
+      "/videos/naveen sharlien/SHARLIEN NAVEEN HALDI.mp4"
+    ],
+  },
+  {
+    slug: "srusti-pratik-haldi",
+    title: "Srusti Pratik Haldi",
+    category: "Narratives",
+    tags: ["Wedding", "Haldi", "Vibrant"],
+    imageSrc: "/images/srusti pratik/010.webp",
+    videoSrc: "/videos/Srusti Pratik/Haldi Pratik Srusti.mp4",
+    client: "Srusti & Pratik",
+    year: "2025",
+    role: "Production Crew & Highlights",
+    story: "A vibrant explosion of color, tradition, and pure joy. We documented the beautiful Haldi ceremony of Srusti and Pratik, focusing on the intimate rituals and the beautiful chaos of family celebrations.",
+    challenge: "Keeping camera optics clean and dry during high-speed turmeric throwing and splash segments.",
+    solution: "Utilized weather-sealed camera packages, rain covers, and long focal zoom lenses to capture macro emotional close-ups from safe distances.",
+    credits: [
+      { role: "Director / DP", name: "Praise" },
+    ],
+    testimonial: {
+      name: "Marcus Vance",
+      role: "Creative Director",
+      company: "Vanguard Studios",
+      quote: "The ceremony fidelity was unbelievable. It looks like a high-budget feature film production.",
+      thumbnailUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800",
+      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    gallery: [
+      "/images/srusti pratik/001.webp",
+      "/images/srusti pratik/002.webp",
+      "/images/srusti pratik/003.webp",
+      "/images/srusti pratik/004.webp",
+      "/images/srusti pratik/005.webp",
+      "/images/srusti pratik/006.webp",
+      "/images/srusti pratik/007.webp",
+      "/images/srusti pratik/008.webp",
+      "/images/srusti pratik/009.webp",
+      "/images/srusti pratik/010.webp",
+      "/images/srusti pratik/011.webp",
+      "/images/srusti pratik/012.webp",
+      "/images/srusti pratik/013.webp",
+      "/images/srusti pratik/015.webp",
+      "/images/srusti pratik/016.webp",
+      "/images/srusti pratik/017.webp",
+      "/images/srusti pratik/018.webp",
+      "/images/srusti pratik/019.webp",
+      "/images/srusti pratik/020.webp",
+      "/images/srusti pratik/021.webp",
+      "/images/srusti pratik/022.webp",
+      "/images/srusti pratik/023.webp",
+      "/images/srusti pratik/024.webp",
+      "/images/srusti pratik/025.webp",
+      "/images/srusti pratik/026.webp",
+      "/images/srusti pratik/027.webp",
+      "/images/srusti pratik/028.webp",
+      "/images/srusti pratik/029.webp",
+      "/images/srusti pratik/030.webp",
+      "/images/srusti pratik/031.webp",
+      "/images/srusti pratik/032.webp",
+      "/images/srusti pratik/033.webp",
+      "/images/srusti pratik/034.webp",
+      "/images/srusti pratik/035.webp",
+      "/images/srusti pratik/036.webp",
+      "/images/srusti pratik/037.webp",
+      "/images/srusti pratik/038.webp",
+      "/images/srusti pratik/039.webp",
+      "/images/srusti pratik/040.webp",
+      "/images/srusti pratik/041.webp",
+      "/images/srusti pratik/042.webp",
+      "/images/srusti pratik/043.webp",
+      "/images/srusti pratik/044.webp",
+      "/images/srusti pratik/045.webp",
+      "/images/srusti pratik/046.webp",
+      "/images/srusti pratik/047.webp",
+      "/images/srusti pratik/048.webp",
+      "/images/srusti pratik/049.webp",
+      "/images/srusti pratik/050.webp",
+      "/images/srusti pratik/051.webp",
+      "/images/srusti pratik/052.webp",
+      "/images/srusti pratik/053.webp",
+      "/images/srusti pratik/054.webp",
+      "/images/srusti pratik/055.webp",
+      "/images/srusti pratik/056.webp",
+      "/images/srusti pratik/057.webp",
+      "/images/srusti pratik/058.webp",
+      "/images/srusti pratik/059.webp",
+      "/images/srusti pratik/060.webp",
+      "/images/srusti pratik/061.webp",
+      "/images/srusti pratik/062.webp",
+      "/images/srusti pratik/063.webp",
+      "/images/srusti pratik/064.webp",
+      "/images/srusti pratik/065.webp",
+      "/images/srusti pratik/066.webp",
+      "/images/srusti pratik/067.webp",
+      "/images/srusti pratik/banner.webp"
+    ],
+  },
+  {
+    slug: "medtourin",
+    title: "Medtourin",
+    category: "Commercials",
+    tags: ["Commercial", "Healthcare", "Corporate"],
+    imageSrc: "/images/medtourin/image.avif",
+    videoSrc: "/videos/medtourin/001.mp4",
+    client: "Medtourin Healthcare",
+    year: "2025",
+    role: "Full Production & Visuals",
+    story: "A compelling showcase of medical innovation and healthcare excellence, outlining high-fidelity surgical robotics and patient care experiences.",
+    challenge: "Maintaining strict sterile laboratory conditions while managing camera rigs, stabilizers, and lighting grids.",
+    solution: "Coordinated camera team sanitization loops and deployed small-footprint LED tubes for medical lighting highlights.",
+    credits: [
+      { role: "Director / DP", name: "Praise" },
+    ],
+    testimonial: {
+      name: "Sophia Rossi",
+      role: "Lead Producer",
+      company: "Aura Films",
+      quote: "Breathtaking visual scopes. The details made the medical innovation look highly premium.",
+      thumbnailUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=800",
+      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    gallery: [
+      "/images/medtourin/image.avif",
+      "/videos/medtourin/002.mp4",
+      "/videos/medtourin/003.mp4",
+      "/videos/medtourin/004.mp4"
+    ],
+  },
+  {
+    slug: "popnosh",
+    title: "Popnosh",
+    category: "Branding",
+    tags: ["Café", "Hospitality", "Promo"],
+    imageSrc: "/images/popnosh/image.png",
+    videoSrc: "/videos/popnosh/popnosh.mp4",
+    client: "Popnosh Hospitality",
+    year: "2026",
+    role: "Commercial Shoot & Script",
+    story: "A feel good café and hospitality showcase, documenting artisanal coffee preparations and warm, welcoming customer spaces.",
+    challenge: "Reflecting the organic aroma and warm visual aesthetics of micro-brewing inside high-density modern layouts.",
+    solution: "Utilized macro lenses for detailed espresso extraction frames and color graded using warm gold and vintage tones.",
+    credits: [
+      { role: "Director / DP", name: "Praise" },
+    ],
+    testimonial: {
+      name: "Marcus Vance",
+      role: "Creative Director",
+      company: "Vanguard Studios",
+      quote: "The final commercial was exceptionally high quality. Customers frequently reference the video look.",
+      thumbnailUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800",
+      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    gallery: [
+      "/images/popnosh/image.png"
+    ],
+  },
+];
+</pre>
+    <h3>8.2.9 Dynamic Sitemap Generator (sitemap.ts)</h3><pre>import { MetadataRoute } from "next";
+import { projectsData } from "@/utils/projectsData";
+import { servicesData } from "@/utils/servicesData";
+import { coursesData } from "@/utils/coursesData";
+import { lessonsData } from "@/utils/lessonsData";
+import { eventsData } from "@/utils/eventsData";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = "https://havilahpro.com";
+
+  // Static routes
+  const staticRoutes = [
+    "",
+    "/projects",
+    "/services",
+
+    "/internships",
+
+    "/courses",
+    "/lessons",
+    "/events",
+    "/appointments",
+    "/requests",
+    "/gallery",
+    "/about",
+    "/contact",
+  ].map((route) =&gt; ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: route === "" ? 1.0 : 0.8,
+  }));
+
+  // Dynamic projects routes
+  const projectRoutes = projectsData.map((p) =&gt; ({
+    url: `${baseUrl}/projects/${p.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  // Dynamic services routes
+  const serviceRoutes = servicesData.map((s) =&gt; ({
+    url: `${baseUrl}/services/${s.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  // Dynamic courses routes
+  const courseRoutes = coursesData.map((c) =&gt; ({
+    url: `${baseUrl}/courses/${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  // Dynamic lessons routes
+  const lessonRoutes = lessonsData.map((l) =&gt; ({
+    url: `${baseUrl}/lessons/${l.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  // Dynamic events routes
+  const eventRoutes = eventsData.map((e) =&gt; ({
+    url: `${baseUrl}/events/${e.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
+
+  return [
+    ...staticRoutes,
+    ...projectRoutes,
+    ...serviceRoutes,
+    ...courseRoutes,
+    ...lessonRoutes,
+    ...eventRoutes,
+  ];
+}
+</pre>
+    <h3>8.2.10 Tailwind CSS Configuration (tailwind.config.ts)</h3><pre>import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        background: "rgb(var(--background) / &lt;alpha-value&gt;)",
+        surface: "rgb(var(--surface) / &lt;alpha-value&gt;)",
+        border: "rgb(var(--border) / &lt;alpha-value&gt;)",
+        accent: {
+          DEFAULT: "rgb(var(--accent) / &lt;alpha-value&gt;)",
+          hover: "rgb(var(--accent-hover) / &lt;alpha-value&gt;)",
+        },
+        text: "rgb(var(--text) / &lt;alpha-value&gt;)",
+        heading: "rgb(var(--heading) / &lt;alpha-value&gt;)",
+      },
+      fontFamily: {
+        sans: ["var(--font-inter)", "sans-serif"],
+        serif: ["var(--font-playfair)", "serif"],
+      },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      animation: {
+        "fade-in-up": "fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "fade-in-down": "fadeInDown 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "fade-in": "fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "scale-up": "scaleUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "draw-line": "drawLine 1.5s ease-out forwards",
+      },
+      keyframes: {
+        fadeInUp: {
+          "0%": { opacity: "0", transform: "translateY(40px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        fadeInDown: {
+          "0%": { opacity: "0", transform: "translateY(-40px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        scaleUp: {
+          "0%": { transform: "scale(1.05)" },
+          "100%": { transform: "scale(1)" },
+        },
+        drawLine: {
+          "0%": { width: "0%" },
+          "100%": { width: "100%" },
+        },
+      },
+    },
+  },
+  plugins: [],
+};
+export default config;
+
+</pre>
+
+    <div class="page-break"></div>
+
+    <h2>8.3 Testing Outcomes</h2>
+    <p>As documented extensively in Chapter 7, the application underwent a rigorous software testing lifecycle encompassing Unit Testing, Integration Testing, System Testing, and Acceptance Testing. A total of 40 detailed test cases were executed against the architecture.</p>
+    <p>The testing phase concluded with a 100% pass rate. The Next.js API routes demonstrated robust error handling (such as returning 500 status codes gracefully rather than crashing the server during API failures). The frontend UI passed all accessibility and responsiveness benchmarks on both mobile and desktop viewports. Form validation securely prevented invalid payloads from reaching the backend, ensuring data integrity.</p>
+
+    <h2>8.4 Performance and Scalability</h2>
+    <p>Performance and scalability are critical for a media-heavy portfolio website. Havilah Pro achieves high performance through a combination of cutting-edge web technologies and strict asset optimization protocols.</p>
+    <ul>
+        <li><strong>Static Site Generation (SSG) & Edge Caching:</strong> Next.js pre-renders the vast majority of the application into static HTML and CSS files at build time. When a user requests a page, the server does not need to execute complex logic or database queries; it simply serves the cached static file via a Content Delivery Network (CDN). This results in near-instantaneous Time to First Byte (TTFB).</li>
+        <li><strong>Automated Media Optimization:</strong> Given the heavy reliance on photography and video, unoptimized media would traditionally paralyze load times. The Next.js `&lt;Image&gt;` component was implemented globally. This component automatically resizes, compresses, and converts images to modern formats (like WebP) based on the requesting device's viewport. Furthermore, all images below the initial fold are automatically lazy-loaded, drastically reducing the initial page weight.</li>
+        <li><strong>Stateless Infinite Scalability:</strong> The architecture's complete lack of a persistent, monolithic database means there are no connection pooling limits or database locking mechanisms to bottleneck traffic. If a marketing campaign drives a massive, sudden influx of users to the site, the Vercel/Hostinger edge network simply spins up additional lightweight serverless functions to handle the Resend API form dispatches. The application scales horizontally and infinitely by design.</li>
+    </ul>
+
+    <h2>8.5 Challenges and Solutions</h2>
+    <p>During the development lifecycle, several technical hurdles were encountered. Systematic debugging and architectural pivoting were required to overcome these challenges.</p>
+    
+    <h3>Challenge 1: Build-Time Environment Variable Panics</h3>
+    <p><strong>Issue:</strong> During the Next.js static build generation on the deployment server, the build process crashed violently with an "Error: Missing API Key". The Next.js static analyzer attempts to pre-render API routes (`/api/contact/route.ts`), which initialize the Resend client. Because sensitive environment variables (`RESEND_API_KEY`) are intentionally omitted from static build phases for security, the Resend SDK threw a fatal exception.</p>
+    <p><strong>Solution:</strong> Implemented a safe fallback initialization bypass. The code was updated to `new Resend(process.env.RESEND_API_KEY || 're_dummy')`. This instructs the static analyzer to safely bypass the initialization block during the safe build time using the dummy string, while securely utilizing the actual hidden environment variable during runtime execution.</p>
+
+    <h3>Challenge 2: Mobile Viewport Z-Index Overlaps</h3>
+    <p><strong>Issue:</strong> User Acceptance Testing (UAT) revealed a critical UX defect on mobile devices. The Floating Socials component and the Chatbot trigger button occupied similar CSS coordinates (bottom-right and bottom-center). On narrow mobile screens, these fixed-position elements overlapped significantly, preventing users from clicking either widget.</p>
+    <p><strong>Solution:</strong> The Tailwind CSS classes governing the positioning were entirely decoupled. Media queries were introduced to anchor the socials to the `bottom-left` strictly on mobile viewports (`max-width: 768px`), keeping the `bottom-right` strictly reserved for the Chatbot trigger, eliminating the UI intersection.</p>
+
+    <div class="page-break"></div>
+
+    <h1>Chapter 9 — Conclusion & Future Enhancements</h1>
+    
+    <h2>9.1 Conclusion</h2>
+    <p>The successful development and deployment of the Havilah Pro web application marks a significant milestone in modernizing the agency's digital infrastructure. By transitioning from a legacy static site to a high-performance, Next.js-driven architecture, the platform now offers unparalleled speed, aesthetic fluidity, and robust client engagement capabilities.</p>
+    <p>The strategic implementation of Serverless API functions combined with the Resend API successfully decentralized data handling. This allowed the agency to securely receive inquiries, internship applications, and appointment requests via real-time email notifications, completely bypassing the financial and technical overhead of maintaining a relational database. Furthermore, the integration of Tailwind CSS alongside Framer Motion successfully captured the cinematic, premium brand identity required by the client.</p>
+    <p>Rigorous testing across 40 distinct scenarios validated that the system is free of critical defects, highly accessible across all devices, and expertly optimized for search engine indexing. The project met all functional and non-functional requirements laid out in the initial system analysis phases, resulting in a scalable, future-proof platform ready to drive global business growth for Havilah Pro.</p>
+
+    <h2>9.2 Future Enhancements</h2>
+    <p>While the current iteration of the software successfully fulfills all baseline requirements, software development is an iterative process. Several enhancements have been identified for future deployment phases to further scale the platform's capabilities:</p>
+    <ul>
+        <li><strong>Headless CMS Integration:</strong> Currently, portfolio projects and services are hardcoded into TypeScript data files (`projectsData.ts`). Integrating a Headless Content Management System (such as Sanity.io or Strapi) would allow non-technical administrators to upload new cinematic projects and update text content directly through a GUI dashboard without requiring codebase redeployments.</li>
+        <li><strong>Full Authentication & User Portal:</strong> Implementing an authentication layer (using NextAuth.js or Clerk) would enable the creation of a secure "Client Portal." Clients could log in to view project contracts, download raw media assets, and check the status of ongoing video editing pipelines directly from the website.</li>
+        <li><strong>AI-Powered Chatbot Integration:</strong> The current Chatbot provides predefined, static responses based on keywords. Integrating the OpenAI API (ChatGPT) into the `/api/chat` route would allow the assistant to dynamically converse with potential clients, answering complex questions about pricing, availability, and camera equipment intelligently.</li>
+        <li><strong>Integrated Payment Gateway:</strong> Connecting the Appointment booking forms to a payment processor like Stripe would allow clients to pay scheduling deposits or purchase complete service packages directly on the platform, fully automating the financial onboarding process.</li>
+        <li><strong>Web Analytics Dashboard:</strong> While Google Analytics can be attached externally, building a custom admin dashboard to track exactly which projects receive the most engagement and which services generate the highest form conversion rates would provide invaluable business intelligence.</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h1>Bibliography</h1>
+    <ul>
+        <li><strong>Next.js Documentation.</strong> Vercel Inc. "App Router Configuration, Data Fetching, and Serverless API Routes." Accessed August 2026. [Online]. Available: https://nextjs.org/docs</li>
+        <li><strong>React Documentation.</strong> Meta Platforms, Inc. "React Components, State Management, and Hooks." Accessed August 2026. [Online]. Available: https://react.dev</li>
+        <li><strong>Tailwind CSS Documentation.</strong> Tailwind Labs. "Utility-First CSS Framework and Mobile-First Responsive Design." Accessed August 2026. [Online]. Available: https://tailwindcss.com/docs</li>
+        <li><strong>Framer Motion Documentation.</strong> Framer. "Animation and Gestures for React." Accessed August 2026. [Online]. Available: https://www.framer.com/motion/</li>
+        <li><strong>Resend API Documentation.</strong> Resend. "Email API for Developers and Serverless Environments." Accessed August 2026. [Online]. Available: https://resend.com/docs</li>
+        <li><strong>Schema.org.</strong> "Structured Data for Semantic Web SEO." Accessed August 2026. [Online]. Available: https://schema.org/</li>
+    </ul>
+
+</div>
+
+<script>
+    function exportHTMLToDoc() {
+        var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+            "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+            "xmlns='http://www.w3.org/TR/REC-html40'>" +
+            "<head><meta charset='utf-8'><title>Export HTML to Word Document</title>" +
+            "<style>" +
+            "body { font-family: 'Times New Roman', Times, serif; font-size: 12pt; line-height: 1.6; }" +
+            "h1 { font-family: 'Arial', sans-serif; font-weight: bold; font-size: 16pt; margin-top: 24pt; margin-bottom: 12pt; text-align: center; page-break-before: always; text-transform: uppercase; }" +
+            "h2 { font-family: 'Arial', sans-serif; font-weight: bold; font-size: 14pt; margin-top: 20pt; margin-bottom: 10pt; }" +
+            "h3 { font-family: 'Arial', sans-serif; font-weight: bold; font-size: 12pt; margin-top: 14pt; margin-bottom: 8pt; color: #333; }" +
+            "p { margin-bottom: 12pt; text-align: justify; }" +
+            "pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; font-family: 'Courier New', Courier, monospace; font-size: 9pt; }" +
+            ".page-break { page-break-before: always; }" +
+            "ul { margin-bottom: 12pt; } li { margin-bottom: 6pt; text-align: justify; }" +
+            "</style></head><body>";
+        var footer = "</body></html>";
+        var sourceHTML = header + document.getElementById("export-content").innerHTML + footer;
+        
+        var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        var fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = 'expanded_report_ch8_9.doc';
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Havilah Pro - Table of Contents</title>
+    <style>
+        body { font-family: "Times New Roman", Times, serif; font-size: 12pt; line-height: 1.6; padding: 20px; max-width: 900px; margin: auto; }
+        h1 { font-family: "Arial", sans-serif; font-weight: bold; font-size: 18pt; margin-top: 24pt; margin-bottom: 24pt; text-align: center; text-transform: uppercase; }
+        .toc-list { list-style-type: none; padding-left: 0; }
+        .toc-list li { display: flex; justify-content: space-between; margin-bottom: 8pt; font-size: 12pt; }
+        .toc-list li span.dots { flex-grow: 1; border-bottom: 2px dotted #000; margin: 0 10px; position: relative; top: -6px; }
+        .toc-list li.chapter { font-weight: bold; margin-top: 15pt; text-transform: uppercase; }
+        .toc-list li.sub { padding-left: 30px; }
+        .toc-list li.subsub { padding-left: 60px; }
+        
+        .header-container { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; }
+        .download-btn { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; font-family: Arial, sans-serif; font-weight: bold; }
+        .download-btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+<div class="header-container">
+    <div>
+        <h2 style="margin: 0; font-family: Arial;">Havilah Pro - Report Contents</h2>
+    </div>
+    <button class="download-btn" onclick="exportHTMLToDoc()">Download as DOCX</button>
+</div>
+
+<div id="export-content">
+    
+    <h1>Table of Contents</h1>
+    
+    <ul class="toc-list">
+        <!-- Front Matter -->
+        <li><div>Declaration</div> <span class="dots"></span> <div>i</div></li>
+        <li><div>Certificate</div> <span class="dots"></span> <div>ii</div></li>
+        <li><div>Acknowledgement</div> <span class="dots"></span> <div>iii</div></li>
+        <li><div>Abstract</div> <span class="dots"></span> <div>iv</div></li>
+        <li><div>List of Figures</div> <span class="dots"></span> <div>v</div></li>
+        <li><div>List of Tables</div> <span class="dots"></span> <div>vi</div></li>
+        <li><div>List of Abbreviations</div> <span class="dots"></span> <div>vii</div></li>
+
+        <!-- Chapter 1 -->
+        <li class="chapter"><div>1. Introduction</div> <span class="dots"></span> <div>1</div></li>
+        <li class="sub"><div>1.1 Project Overview</div> <span class="dots"></span> <div>2</div></li>
+        <li class="sub"><div>1.2 Problem Statement</div> <span class="dots"></span> <div>3</div></li>
+        <li class="sub"><div>1.3 Objectives of the Project</div> <span class="dots"></span> <div>4</div></li>
+        <li class="sub"><div>1.4 Scope of the Application</div> <span class="dots"></span> <div>5</div></li>
+
+        <!-- Chapter 2 -->
+        <li class="chapter"><div>2. Literature Survey</div> <span class="dots"></span> <div>6</div></li>
+        <li class="sub"><div>2.1 Existing Systems Analysis</div> <span class="dots"></span> <div>7</div></li>
+        <li class="sub"><div>2.2 Drawbacks of Existing Systems</div> <span class="dots"></span> <div>8</div></li>
+        <li class="sub"><div>2.3 Proposed System Architecture</div> <span class="dots"></span> <div>9</div></li>
+
+        <!-- Chapter 3 -->
+        <li class="chapter"><div>3. System Requirements</div> <span class="dots"></span> <div>10</div></li>
+        <li class="sub"><div>3.1 Functional Requirements</div> <span class="dots"></span> <div>11</div></li>
+        <li class="sub"><div>3.2 Non-Functional Requirements</div> <span class="dots"></span> <div>12</div></li>
+        <li class="sub"><div>3.3 Hardware Requirements</div> <span class="dots"></span> <div>13</div></li>
+        <li class="sub"><div>3.4 Software Requirements</div> <span class="dots"></span> <div>14</div></li>
+
+        <!-- Chapter 4 -->
+        <li class="chapter"><div>4. Technologies Used</div> <span class="dots"></span> <div>15</div></li>
+        <li class="sub"><div>4.1 Next.js 14 (App Router)</div> <span class="dots"></span> <div>16</div></li>
+        <li class="sub"><div>4.2 React.js & Tailwind CSS</div> <span class="dots"></span> <div>17</div></li>
+        <li class="sub"><div>4.3 Framer Motion (UI Animations)</div> <span class="dots"></span> <div>18</div></li>
+        <li class="sub"><div>4.4 Resend Email API Integration</div> <span class="dots"></span> <div>19</div></li>
+
+        <!-- Chapter 5 -->
+        <li class="chapter"><div>5. System Design</div> <span class="dots"></span> <div>20</div></li>
+        <li class="sub"><div>5.1 High-Level Architecture</div> <span class="dots"></span> <div>21</div></li>
+        <li class="sub"><div>5.2 Use Case Diagrams</div> <span class="dots"></span> <div>22</div></li>
+        <li class="sub"><div>5.3 Data Flow Diagrams (DFD)</div> <span class="dots"></span> <div>23</div></li>
+        <li class="sub"><div>5.4 User Interface Design</div> <span class="dots"></span> <div>25</div></li>
+
+        <!-- Chapter 6 -->
+        <li class="chapter"><div>6. Implementation Details</div> <span class="dots"></span> <div>27</div></li>
+        <li class="sub"><div>6.1 Component Structure</div> <span class="dots"></span> <div>28</div></li>
+        <li class="sub"><div>6.2 Serverless API Routing</div> <span class="dots"></span> <div>29</div></li>
+        <li class="sub"><div>6.3 SEO & Metadata Generation</div> <span class="dots"></span> <div>30</div></li>
+
+        <!-- Chapter 7 -->
+        <li class="chapter"><div>7. Software Testing</div> <span class="dots"></span> <div>31</div></li>
+        <li class="sub"><div>7.1 Unit Testing</div> <span class="dots"></span> <div>32</div></li>
+        <li class="sub"><div>7.2 Integration Testing</div> <span class="dots"></span> <div>33</div></li>
+        <li class="sub"><div>7.3 System Testing</div> <span class="dots"></span> <div>34</div></li>
+        <li class="sub"><div>7.4 Acceptance Testing</div> <span class="dots"></span> <div>35</div></li>
+        <li class="sub"><div>7.5 Test Environment & Data</div> <span class="dots"></span> <div>36</div></li>
+        <li class="sub"><div>7.6 Defect Reporting & Summary</div> <span class="dots"></span> <div>37</div></li>
+
+        <!-- Chapter 8 -->
+        <li class="chapter"><div>8. Results & Discussion</div> <span class="dots"></span> <div>38</div></li>
+        <li class="sub"><div>8.1 Implementation Outcomes</div> <span class="dots"></span> <div>39</div></li>
+        <li class="sub"><div>8.2 Core Coding Snippets</div> <span class="dots"></span> <div>40</div></li>
+        <li class="sub"><div>8.3 Performance & Scalability</div> <span class="dots"></span> <div>50</div></li>
+        <li class="sub"><div>8.4 Challenges & Solutions</div> <span class="dots"></span> <div>51</div></li>
+        <li class="sub"><div>8.5 Final GUI Screenshots</div> <span class="dots"></span> <div>53</div></li>
+
+        <!-- Chapter 9 -->
+        <li class="chapter"><div>9. Conclusion & Future Work</div> <span class="dots"></span> <div>60</div></li>
+        
+        <!-- Back Matter -->
+        <li class="chapter"><div>Bibliography</div> <span class="dots"></span> <div>61</div></li>
+    </ul>
+
+</div>
+
+<script>
+    function exportHTMLToDoc() {
+        var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+            "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+            "xmlns='http://www.w3.org/TR/REC-html40'>" +
+            "<head><meta charset='utf-8'><title>Export HTML to Word Document</title>" +
+            "<style>" +
+            "body { font-family: 'Times New Roman', Times, serif; font-size: 12pt; line-height: 1.6; }" +
+            "h1 { font-family: 'Arial', sans-serif; font-weight: bold; font-size: 18pt; margin-top: 24pt; margin-bottom: 24pt; text-align: center; text-transform: uppercase; }" +
+            ".toc-list { list-style-type: none; padding-left: 0; }" +
+            ".toc-list li { display: flex; justify-content: space-between; margin-bottom: 8pt; font-size: 12pt; }" +
+            ".toc-list li span.dots { flex-grow: 1; border-bottom: 2px dotted #000; margin: 0 10px; position: relative; top: -6px; }" +
+            ".toc-list li.chapter { font-weight: bold; margin-top: 15pt; text-transform: uppercase; }" +
+            ".toc-list li.sub { padding-left: 30px; }" +
+            ".toc-list li.subsub { padding-left: 60px; }" +
+            "</style></head><body>";
+        var footer = "</body></html>";
+        var sourceHTML = header + document.getElementById("export-content").innerHTML + footer;
+        
+        var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        var fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = 'table_of_contents.doc';
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+    }
+</script>
+
+</body>
+</html>
